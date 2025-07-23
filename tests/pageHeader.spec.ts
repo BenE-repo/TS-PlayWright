@@ -1,20 +1,13 @@
 import { test, expect } from '@playwright/test';
+import { PageHeader } from '../page_objects/pageHeader.pom';
 
-// test('xxxx', async ({ page }) => {
-// });
-
-test.describe("Home Page", async () => {
+test.describe("Page Header", async () => {
 
   test.beforeEach(async ({ page }) => {
 
-      await page.goto('https://ecommerce-playground.lambdatest.io/');
-    });
+    // TODO use config for url instead
+    await page.goto('https://ecommerce-playground.lambdatest.io/');
 
-  test('Title', async ({ page }) => {
-
-    // Expect a title "to contain" a substring.
-    await expect(page).toHaveTitle('Your Store');
-    
   });
 
   // Use a visual snapshot comparison to check the logo/search bar/menu at the top of the page are correct.
@@ -22,10 +15,9 @@ test.describe("Home Page", async () => {
   //      If they do then snapshot checking wouldn't be robust enough to use.
   test('Menu Bar Contents', async ({ page }) => {
 
-    await expect(page).toHaveScreenshot("menu.png", {
-      mask: [page.locator('#common-home'), page.locator('//footer')]
+    const pageHeader = new PageHeader(page);
+    await expect(page).toHaveScreenshot("menu.png", { mask: pageHeader.snapshotMask });
 
-    })
   });
 
   // Use aria snapshot to check the contents of the 'Shop By Category' menu.
@@ -52,8 +44,10 @@ test.describe("Home Page", async () => {
 
   test('Special Menu Navigation', async({ page }) => {
 
-    await page.getByRole('link', { name: 'Special Hot', exact: true }).click();
-    await page.waitForURL('https://ecommerce-playground.lambdatest.io/index.php?route=product/special');
+    const pageHeader = new PageHeader(page);
+   
+    await pageHeader.special.click();
+    await page.waitForURL(pageHeader.pageUrl);
 
   });
 

@@ -1,7 +1,6 @@
 - heading "Mobiles" [level=3]
 - list:
   - listitem:
-    - /children: equal
     - link "Apple":
       - /url: https://ecommerce-playground.lambdatest.io/index.php?route=product/manufacturer/info&manufacturer_id=8
   - listitem:

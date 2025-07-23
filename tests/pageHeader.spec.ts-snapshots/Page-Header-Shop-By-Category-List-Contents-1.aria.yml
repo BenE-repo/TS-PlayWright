@@ -3,7 +3,6 @@
     - /url: "#mz-component-1626147655"
 - navigation:
   - list:
-    - /children: equal
     - listitem:
       - link "Components":
         - /url: https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=25

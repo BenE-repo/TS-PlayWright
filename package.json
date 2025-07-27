@@ -13,6 +13,10 @@
     "@cucumber/cucumber": "^12.1.0",
     "@playwright/test": "^1.54.1",
     "@types/node": "^24.0.15",
+    "@types/sprintf-js": "^1.1.4",
     "ts-node": "^10.9.2"
+  },
+  "dependencies": {
+    "sprintf-js": "^1.1.3"
   }
 }

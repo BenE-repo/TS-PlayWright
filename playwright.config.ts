@@ -17,7 +17,7 @@ export default defineConfig({
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
-  /* Retry on CI only */
+  /* 2 retries on CI, 1 elsewhere */
   retries: process.env.CI ? 2 : 1,
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
@@ -31,6 +31,8 @@ export default defineConfig({
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
   },
+  /* Set location for snapshot storage */
+  snapshotPathTemplate: '{testDir}/snapshots/{testFilePath}/{projectName}/{arg}{ext}',
 
   /* Configure projects for major browsers */
   projects: [

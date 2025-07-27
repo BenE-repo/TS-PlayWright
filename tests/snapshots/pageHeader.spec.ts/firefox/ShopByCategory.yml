@@ -1,0 +1,69 @@
+- heading "Top categories close" [level=5]:
+  - link "close":
+    - /url: "#mz-component-1626147655"
+- navigation:
+  - list:
+    - listitem:
+      - link "Components":
+        - /url: https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=25
+        - img
+    - listitem:
+      - link "Cameras":
+        - /url: https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=33
+        - img
+    - listitem:
+      - link "Phone, Tablets & Ipod":
+        - /url: https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=57
+        - img
+    - listitem:
+      - link "Software":
+        - /url: https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=17
+        - img
+    - listitem:
+      - link "MP3 Players":
+        - /url: https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=34
+        - img
+    - listitem:
+      - link "Laptops & Notebooks":
+        - /url: https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=18
+        - img
+    - listitem:
+      - link "Desktops and Monitors":
+        - /url: https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=28
+        - img
+    - listitem:
+      - link "Printers & Scanners":
+        - /url: https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=30
+        - img
+    - listitem:
+      - link "Mice and Trackballs":
+        - /url: https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=29
+        - img
+    - listitem:
+      - link "Fashion and Accessories":
+        - /url: ""
+        - img
+    - listitem:
+      - link "Beauty and Saloon":
+        - /url: ""
+        - img
+    - listitem:
+      - link "Autoparts and Accessories":
+        - /url: ""
+        - img
+    - listitem:
+      - link "Washing machine":
+        - /url: ""
+        - img
+    - listitem:
+      - link "Gaming consoles":
+        - /url: ""
+        - img
+    - listitem:
+      - link "Air conditioner":
+        - /url: ""
+        - img
+    - listitem:
+      - link "Web Cameras":
+        - /url: https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=32
+        - img

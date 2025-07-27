@@ -1,0 +1,101 @@
+- heading "Mobiles" [level=3]
+- list:
+  - listitem:
+    - link "Apple":
+      - /url: https://ecommerce-playground.lambdatest.io/index.php?route=product/manufacturer/info&manufacturer_id=8
+  - listitem:
+    - link "HTC":
+      - /url: https://ecommerce-playground.lambdatest.io/index.php?route=product/manufacturer/info&manufacturer_id=5
+  - listitem:
+    - link "LG":
+      - /url: https://ecommerce-playground.lambdatest.io/index.php?route=product/manufacturer/info&manufacturer_id=8
+  - listitem:
+    - link "Nokia":
+      - /url: https://ecommerce-playground.lambdatest.io/index.php?route=product/manufacturer/info&manufacturer_id=9
+  - listitem:
+    - link "Samsung":
+      - /url: https://ecommerce-playground.lambdatest.io/index.php?route=product/manufacturer/info&manufacturer_id=8
+  - listitem:
+    - link "Xiomi":
+      - /url: https://ecommerce-playground.lambdatest.io/index.php?route=product/manufacturer/info&manufacturer_id=11
+- heading "Laptops" [level=3]
+- list:
+  - listitem:
+    - link "Apple Macbook":
+      - /url: https://ecommerce-playground.lambdatest.io/index.php?route=product/manufacturer/info&manufacturer_id=8
+  - listitem:
+    - link "Asus":
+      - /url: https://ecommerce-playground.lambdatest.io/index.php?route=product/manufacturer/info&manufacturer_id=9
+  - listitem:
+    - link "HP":
+      - /url: https://ecommerce-playground.lambdatest.io/index.php?route=product/manufacturer/info&manufacturer_id=5
+  - listitem:
+    - link "Lenovo":
+      - /url: https://ecommerce-playground.lambdatest.io/index.php?route=product/manufacturer/info&manufacturer_id=5
+- heading "Accessories" [level=3]
+- list:
+  - listitem:
+    - link "Headphones":
+      - /url: https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=25
+  - listitem:
+    - link "Memory Card":
+      - /url: https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=30
+  - listitem:
+    - link "Mobile cases":
+      - /url: https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=29
+  - listitem:
+    - link "Power bank":
+      - /url: https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=27
+  - listitem:
+    - link "Screenguards":
+      - /url: https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=28
+- heading "Smart Wearable" [level=3]
+- list:
+  - listitem:
+    - link "Smart Watch":
+      - /url: https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=24
+  - listitem:
+    - link "Smart band":
+      - /url: https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=33
+- heading "Tablets" [level=3]
+- list:
+  - listitem:
+    - link "Apple Ipad":
+      - /url: https://ecommerce-playground.lambdatest.io/index.php?route=product/manufacturer/info&manufacturer_id=8
+- heading "Computers" [level=3]
+- list:
+  - listitem:
+    - link "Desktop":
+      - /url: https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=20
+  - listitem:
+    - link "Hard disk":
+      - /url: https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=28
+  - listitem:
+    - link "Mouse & Keyboard":
+      - /url: https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=29
+  - listitem:
+    - link "Pen Drive":
+      - /url: https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=29
+  - listitem:
+    - link "Printer":
+      - /url: https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=30
+- heading "Sound System" [level=3]
+- list:
+  - listitem:
+    - link "Bluetooth Speaker":
+      - /url: https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=25
+  - listitem:
+    - link "DTH":
+      - /url: https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=33
+  - listitem:
+    - link "Home Audio":
+      - /url: https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=25
+  - listitem:
+    - link "Home Theatre":
+      - /url: https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=25
+  - listitem:
+    - link "SoundBar":
+      - /url: https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=32
+- link "Window phone":
+  - /url: https://ecommerce-playground.lambdatest.io/index.php?route=product/category&path=24
+  - img "Window phone"

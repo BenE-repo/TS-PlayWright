@@ -1,5 +1,8 @@
 import { test, expect } from '@playwright/test';
 import { PageHeader } from '../page_objects/pageHeader.pom';
+import { HomePage } from '../page_objects/homePage.pom';
+import { SpecialPage } from '../page_objects/specialPage.pom';
+import { BlogPage } from '../page_objects/blogPage.pom';
 
 test.describe("Page Header", async () => {
 
@@ -16,7 +19,7 @@ test.describe("Page Header", async () => {
   test('Menu Bar Contents', async ({ page }) => {
 
     const pageHeader = new PageHeader(page);
-    await expect(page).toHaveScreenshot("menu.png", { mask: pageHeader.snapshotMask });
+    await expect(page).toHaveScreenshot('headerMenu.png', { mask: pageHeader.snapshotMask });
 
   });
 
@@ -24,21 +27,24 @@ test.describe("Page Header", async () => {
   // N.B. The snapshot has had '/children: equal' manually added for exact matching.
   test('Shop By Category List Contents', async ({ page }) => {
 
-    await page.getByRole('button', { name: 'Shop by Category' }).click();
-    await expect(page.locator('#mz-component-1626147655')).toMatchAriaSnapshot()
+    const pageHeader = new PageHeader(page);
+    await pageHeader.shopByCategoryBtn.click();
+    await expect(pageHeader.shopByCategoryMenu).toMatchAriaSnapshot({ name: 'ShopByCategory.yml'});
     
   });
 
   // Go to another page in the site and click 'Home' to check it takes us back
   test('Home Menu Navigation', async({ page }) => {
   
-    await page.getByRole('link', { name: 'Special Hot', exact: true }).click();
-    await page.waitForURL('https://ecommerce-playground.lambdatest.io/index.php?route=product/special');
+    const pageHeader = new PageHeader(page);
+    const specialPage = new SpecialPage(page);
+    const homePage = new HomePage(page);
 
-    // There are two links back to 'Home' on the page we're on, so need to locate the menu button with .locator()
-    // rather than just .getByRole()
-    await page.locator('#widget-navbar-217834').getByRole('link', { name: 'Home' }).click();
-    await page.waitForURL('https://ecommerce-playground.lambdatest.io/index.php?route=common/home');
+    await pageHeader.special.click();
+    await page.waitForURL(specialPage.pageUrl);
+
+    await pageHeader.home.click();
+    await page.waitForURL(homePage.pageUrl);
 
   });
 
@@ -53,8 +59,11 @@ test.describe("Page Header", async () => {
 
   test('Blog Menu Navigation', async({ page }) => {
 
-    await page.getByRole('link', { name: 'Blog', exact: true }).click();
-    await page.waitForURL('https://ecommerce-playground.lambdatest.io/index.php?route=extension/maza/blog/home');
+    const pageHeader = new PageHeader(page);
+    const blogPage = new BlogPage(page);
+
+    await pageHeader.blog.click();
+    await page.waitForURL(blogPage.pageUrl);
     
   });
 
@@ -62,39 +71,37 @@ test.describe("Page Header", async () => {
   // to compare
   test('Mega Menu Content', async({ page }) => {
 
-    await page.getByRole('button', { name: 'Mega Menu' }).hover();
-    await expect(page.locator('#entry281_216475')).toMatchAriaSnapshot()
+    const pageHeader = new PageHeader(page);
+    await pageHeader.megaMenuBtn.hover();
+    await expect(pageHeader.megaMenuMenu).toMatchAriaSnapshot({ name: 'MegaMenu.yaml'});
   
   });
 
-  // The 'Mega Menu' is split into sections, 'Mobiles', 'Laptops' etc., so using XPath to get the 
+  // The 'Mega Menu' is split into sections, 'Mobiles', 'Laptops' etc., so go through the 
   // links to every item in the 'Mobiles' section, loop through checking the correct page loads OK.
   test('Mega Menu Links - Mobile', async({ page }) => {
 
-    const items = page.locator('//h3[text()[contains(.,"Mobiles")]]/../div/ul/li/a');
-    const itemsCount = await items.count()
-
+    const pageHeader = new PageHeader(page);
     // N.B. Only the first two pages are set up correctly on the test website, so this test will always
     // fail on the 3rd + loop through. Hence the hardcoded 2 loops.
     for (let i = 0; i < 2; i++) {
-    // for (let i = 0; i < itemsCount; i++) {
+    // for (let i = 0; i < pageHeader.mmCatMobile.count(); i++) {
       await page.getByRole('button', { name: 'Mega Menu' }).hover();
-      await items.nth(i).click();
-      let pageName = await items.nth(i).textContent();
+      await pageHeader.mmCatMobile.nth(i).click();
+      let pageName = await pageHeader.mmCatMobile.nth(i).textContent();
       await expect(page.getByRole('heading', { name: pageName!, exact: true })).toBeVisible();
       await page.goto('https://ecommerce-playground.lambdatest.io/');
 
     }
 
-    // -------------------------------------------------------
-    // NOT DONE: Link tests for the other 'Mega Menu' sections
-    // -------------------------------------------------------
+    /*
+      NOT DONE: Link tests for the other 'Mega Menu' sections as it'll be essentially the same as above
+    */ 
 
-    // -------------------------------------------------------
-    // NOT DONE: Same tests as 'Mega Menu' for the 'AddOns' 
-    // menu, as none of the links on the test site are hooked 
-    // up correctly
-    // -------------------------------------------------------
+    /*
+      NOT DONE: Same tests as 'Mega Menu' for the 'AddOns' menu, as none of the links on the test site are hooked 
+      up correctly (and it'll essentially be the same as for the Mega Menu)
+    */
 
   });
   

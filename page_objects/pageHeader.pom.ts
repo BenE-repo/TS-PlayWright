@@ -34,8 +34,8 @@ export class PageHeader extends BasePom {
         this.blog = _baseLocMenu.getByRole('link', { name: 'Blog' });
         this.megaMenuBtn = page.getByRole('button', { name: 'Mega Menu' });
         this.megaMenuMenu = page.locator('#entry281_216475');
-        // Trying to "Show off" by doing some string formatting instead of concatting _strStart + "foobar + _strEnd"
-        const _mmBase = `//h3[text()[contains(.,"%s")]]/../div/ul/li/a`;
+        // Trying to 'Show off' by doing some string formatting instead of concatting _strStart + "foobar + _strEnd"
+        const _mmBase = `//h3[text()[contains(.,'%s')]]/../div/ul/li/a`;
         this.mmCatMobile = page.locator(sprintf(_mmBase, 'Mobiles'));
         // The icons at the top right also match multiple times on a simple selector, so need to locate by id first again
         const _baseLocIcons = page.locator('#entry_217820');

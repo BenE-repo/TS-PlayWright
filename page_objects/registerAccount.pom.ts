@@ -15,6 +15,13 @@ export class RegisterAccount extends BasePom {
     public readonly privacyPolicy: Locator;
     public readonly continue: Locator;
 
+    public readonly firstNameError: Locator;
+    public readonly lastNameError: Locator;
+    public readonly emailError: Locator;
+    public readonly telephoneError: Locator;
+    public readonly passwordError: Locator;
+    public readonly passwordConfirmError: Locator;
+
     constructor(page: Page) {
         
         super();
@@ -26,9 +33,17 @@ export class RegisterAccount extends BasePom {
         this.password = page.getByRole('textbox', { name: 'Password*'})
         this.confirmPassword = page.getByRole('textbox', { name: 'Password Confirm*'})
         this.newsletterSubscribe_yes = page.getByRole('group', { name: 'Newsletter' }).getByRole('radio', { name: 'Yes' });
-        //this.newsletterSubscribe_yes = page.getByLabel('Yes');
         this.privacyPolicy = page.getByRole('checkbox', { name: 'I have read and agree to the Privacy Policy'});
         this.continue = page.getByRole('button', { name: 'Continue' });
+
+        const _fieldErrorBase = `//label[text()='%s']/following-sibling::div/div[@class='text-danger']`
+        this.firstNameError = page.locator(sprintf(_fieldErrorBase, 'First Name'));
+        this.lastNameError = page.locator(sprintf(_fieldErrorBase, 'Last Name'));
+        this.emailError = page.locator(sprintf(_fieldErrorBase, 'E-Mail'));
+        this.telephoneError = page.locator(sprintf(_fieldErrorBase, 'Telephone'));
+        this.emailError = page.locator(sprintf(_fieldErrorBase, 'E-Mail'));
+        this.passwordError = page.locator(sprintf(_fieldErrorBase, 'Password'));
+        this.passwordConfirmError = page.locator(sprintf(_fieldErrorBase, 'Password Confirm'));
 
         // this.snapshotMask = [page.locator('#common-home'), page.locator('//footer')];
         // this.shopByCategoryBtn = page.getByRole('button', { name: 'Shop by Category' });

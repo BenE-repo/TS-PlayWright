@@ -12,7 +12,11 @@ export class PageHeader extends BasePom {
     public readonly blog: Locator;
     public readonly megaMenuBtn: Locator;
     public readonly megaMenuMenu: Locator;
+    // Just have the 'mobile' catgegory here as the other ones aren't working on the test site
     public readonly mmCatMobile: Locator;
+    public readonly compare: Locator;
+    public readonly wishlist: Locator;
+    public readonly shoppingCart: Locator;
 
     constructor(page: Page) {
         
@@ -24,15 +28,21 @@ export class PageHeader extends BasePom {
         // The breadcrumb menu on some pages interferes means that there can be multiple links
         // with the same name, so have to locate by id first to make sure it's the link in 
         // the page header menu
-        const _baseLoc = page.locator('#widget-navbar-217834');
-        this.home = _baseLoc.getByRole('link', { name: 'Home' });
-        this.special = _baseLoc.getByRole('link', { name: 'Special Hot'});
-        this.blog = _baseLoc.getByRole('link', { name: 'Blog' });
+        const _baseLocMenu = page.locator('#widget-navbar-217834');
+        this.home = _baseLocMenu.getByRole('link', { name: 'Home' });
+        this.special = _baseLocMenu.getByRole('link', { name: 'Special Hot'});
+        this.blog = _baseLocMenu.getByRole('link', { name: 'Blog' });
         this.megaMenuBtn = page.getByRole('button', { name: 'Mega Menu' });
         this.megaMenuMenu = page.locator('#entry281_216475');
         // Trying to "Show off" by doing some string formatting instead of concatting _strStart + "foobar + _strEnd"
         const _mmBase = `//h3[text()[contains(.,"%s")]]/../div/ul/li/a`;
         this.mmCatMobile = page.locator(sprintf(_mmBase, 'Mobiles'));
+        // The icons at the top right also match multiple times on a simple selector, so need to locate by id first again
+        const _baseLocIcons = page.locator('#entry_217820');
+        this.compare = _baseLocIcons.getByRole('link', { name: 'Compare' });
+        this.wishlist = _baseLocIcons.getByRole('link', { name: 'Wishlist' });
+        // Theres no nice aria name for the shopping cart, so ugly XPath is needed instead.
+        this.shoppingCart = page.locator(`//div[@id='entry_217825']/a[@href='#cart-total-drawer']`);
 
     }
 

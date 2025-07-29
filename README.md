@@ -1,6 +1,8 @@
 # TS-PlayWright
 Test project showing TypeScript/PlayWright. Uses the Lambdatest mock website (https://ecommerce-playground.lambdatest.io/) for tests.
 
+- Very much a work in progress
+
 - Page Object Model implemented throughout
     - 'basePom' contains properties and methods that used by all other POMs
     - The other POMs extend basePom.

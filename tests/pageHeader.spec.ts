@@ -3,8 +3,11 @@ import { PageHeader } from '../page_objects/pageHeader.pom';
 import { HomePage } from '../page_objects/homePage.pom';
 import { SpecialPage } from '../page_objects/specialPage.pom';
 import { BlogPage } from '../page_objects/blogPage.pom';
+import { ComparePage } from '../page_objects/comparePage.pom';
+import { LoginPage } from '../page_objects/loginPage.pom';
+import { CartDrawer } from '../page_objects/cartDrawer.pom';
 
-test.describe("Page Header", async () => {
+test.describe('Page Header', async () => {
 
   test.beforeEach(async ({ page }) => {
 
@@ -102,6 +105,36 @@ test.describe("Page Header", async () => {
       NOT DONE: Same tests as 'Mega Menu' for the 'AddOns' menu, as none of the links on the test site are hooked 
       up correctly (and it'll essentially be the same as for the Mega Menu)
     */
+
+  });
+
+  test('Compare Navigation', async({ page }) => {
+
+    const pageHeader = new PageHeader(page);
+    const comparePage = new ComparePage(page);
+    await pageHeader.compare.click();
+    await page.waitForURL(comparePage.pageUrl);
+
+  });
+
+  // Need to be logged in to get to an actual wishlist, but will keep this test in for completeness.
+  // When not logged in the button takes the user to the login page
+  test('Wishlist Navigation', async({ page }) => {
+
+    const pageHeader = new PageHeader(page);
+    const loginPage = new LoginPage(page);
+    await pageHeader.wishlist.click();
+    await page.waitForURL(loginPage.pageUrl);
+
+  });
+
+  // A drawer opens when the shopping cart is clicked.
+  test('Shopping Cart Drawer Opens', async({ page }) => {
+
+    const pageHeader = new PageHeader(page);
+    const cartDrawer = new CartDrawer(page);
+    await pageHeader.shoppingCart.click();
+    await expect(cartDrawer.mainForm).toBeVisible();
 
   });
   

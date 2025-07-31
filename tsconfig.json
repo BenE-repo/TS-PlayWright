@@ -1,5 +1,10 @@
 {
     "compilerOptions": {
-        "module": "CommonJS"
+        "module": "CommonJS",
+        "baseUrl": ".",
+        "paths": {
+            "@pages/*": ["lib/pages/*"],
+            "@fixtures/*" : ["lib/fixtures/*"],
+        }
     }
 }

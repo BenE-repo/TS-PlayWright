@@ -6,7 +6,7 @@ export class RegisterAccount extends BasePom {
 
     public readonly pageUrl: string;
     public readonly firstName: Locator;
-    public readonly LastName: Locator;
+    public readonly lastName: Locator;
     public readonly email: Locator;
     public readonly telephone: Locator;
     public readonly password: Locator;
@@ -27,7 +27,7 @@ export class RegisterAccount extends BasePom {
         super();
         this.pageUrl = this.baseURL + 'index.php?route=account/register';
         this.firstName = page.getByRole('textbox', { name: 'First Name*'});
-        this.LastName = page.getByRole('textbox', { name: 'Last Name*'});
+        this.lastName = page.getByRole('textbox', { name: 'Last Name*'});
         this.email = page.getByRole('textbox', { name: 'E-Mail*'});
         this.telephone = page.getByRole('textbox', { name: 'Telephone*'});
         this.password = page.getByRole('textbox', { name: 'Password*'})

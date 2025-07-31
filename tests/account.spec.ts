@@ -1,11 +1,10 @@
-import { test, expect } from '@playwright/test';
-// import { PageHeader } from '../page_objects/pageHeader.pom';
-import { RegisterAccount } from '../page_objects/registerAccount.pom';
+import { expect } from '@playwright/test';
+import { test } from '@fixtures/pageobjects.fixture';
 
 test.describe('Account Register and Login', async () => {
 
-  test.beforeEach(async ({ page }) => {
-    const registerAccount = new RegisterAccount(page);
+  test.beforeEach(async ({ page, registerAccount }) => {
+
     // TODO use config for url instead
     await page.goto(registerAccount.pageUrl);
 
@@ -14,11 +13,10 @@ test.describe('Account Register and Login', async () => {
   // N.B. Don't want to spam the test site with new accounts as I don't own it. In a real world situation
   // I would end this with logging into the new account and/or checking the DB itself for the new record
   // (then deleting the account from the DB)
-  test('Register for Account: Fully Valid', async({ page }) => {
+  test('Register for Account: Fully Valid', async({ page, registerAccount }) => {
 
-    const registerAccount = new RegisterAccount(page);
     await registerAccount.firstName.fill('Tom');
-    await registerAccount.LastName.fill('Hunter');
+    await registerAccount.lastName.fill('Hunter');
     await registerAccount.email.fill('tomhunter@example.com');
     await registerAccount.telephone.fill('01603 123456');
     await registerAccount.password.fill('Aa123456');
@@ -30,7 +28,6 @@ test.describe('Account Register and Login', async () => {
     // Commenting out this line so we can avoid registering a new user while still validaitng the page on submit.
     // await registerAccount.privacyPolicy.check({ force: true});
     await registerAccount.continue.click();
-
     await expect(registerAccount.firstNameError).toBeHidden();
     await expect(registerAccount.lastNameError).toBeHidden();
     await expect(registerAccount.emailError).toBeHidden();
@@ -40,11 +37,9 @@ test.describe('Account Register and Login', async () => {
 
   });
 
-  test('Register for Account: Empty Form', async({ page }) => {
+  test('Register for Account: Empty Form', async({ page, registerAccount }) => {
 
-    const registerAccount = new RegisterAccount(page);
     await registerAccount.continue.click();
-
     await expect(registerAccount.firstNameError).toBeVisible();
     await expect(registerAccount.lastNameError).toBeVisible();
     await expect(registerAccount.emailError).toBeVisible();
@@ -53,9 +48,8 @@ test.describe('Account Register and Login', async () => {
 
   });
 
-  test('Register for Account: First Name Min/Max Lengths', async({ page }) => {
+  test('Register for Account: First Name Min/Max Lengths', async({ page, registerAccount }) => {
 
-    const registerAccount = new RegisterAccount(page);
     // Empty
     await registerAccount.continue.click();
     await expect(registerAccount.firstNameError).toBeVisible();
@@ -73,5 +67,42 @@ test.describe('Account Register and Login', async () => {
     await expect(registerAccount.firstNameError).toBeVisible();
 
   });
-  
+
+  test('Register for Account: Last Name Min/Max Lengths', async({ page, registerAccount }) => {
+
+    // Empty
+    await registerAccount.continue.click();
+    await expect(registerAccount.lastNameError).toBeVisible();
+    // 1 Char
+    await registerAccount.lastName.fill('A');
+    await registerAccount.continue.click();
+    await expect(registerAccount.lastNameError).toBeHidden();
+    // 32 Chars
+    await registerAccount.lastName.fill('AAAAAAAAAABBBBBBBBBBCCCCCCCCCCDD');
+    await registerAccount.continue.click();
+    await expect(registerAccount.lastNameError).toBeHidden();
+    // 33 Chars
+    await registerAccount.lastName.fill('AAAAAAAAAABBBBBBBBBBCCCCCCCCCCDDX');
+    await registerAccount.continue.click();
+    await expect(registerAccount.lastNameError).toBeVisible();
+
+  });
+
+  test('Register for Account: Email Validity - Basic String', async({ page, registerAccount }) => {
+
+    await registerAccount.email.fill('BasicString');
+    await registerAccount.continue.click();
+    // TODO: pop up error
+    await expect(registerAccount.emailError).toBeVisible();
+
+  });
+
+  test('Register for Account: Email Validity - No domain', async({ page, registerAccount }) => {
+
+    await registerAccount.email.fill('NoDomain@');
+    await registerAccount.continue.click();
+    // TODO: pop up error
+    await expect(registerAccount.emailError).toBeVisible();
+
+  });
 });

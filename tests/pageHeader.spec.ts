@@ -1,11 +1,6 @@
-import { test, expect } from '@playwright/test';
-import { PageHeader } from '../page_objects/pageHeader.pom';
-import { HomePage } from '../page_objects/homePage.pom';
-import { SpecialPage } from '../page_objects/specialPage.pom';
-import { BlogPage } from '../page_objects/blogPage.pom';
-import { ComparePage } from '../page_objects/comparePage.pom';
-import { LoginPage } from '../page_objects/loginPage.pom';
-import { CartDrawer } from '../page_objects/cartDrawer.pom';
+// import { expect } from '@playwright/test';
+// import { test } from '@fixtures/pageobjects.fixture';
+import { test, expect } from '@fixtures/base.fixture';
 
 test.describe('Page Header', async () => {
 
@@ -19,30 +14,24 @@ test.describe('Page Header', async () => {
   // Use a visual snapshot comparison to check the logo/search bar/menu at the top of the page are correct.
   // N.B. I'm assuming this part is relatively static, that the 'hot' and 'featured' labels aren't ever moved etc. 
   //      If they do then snapshot checking wouldn't be robust enough to use.
-  test('Menu Bar Contents', async ({ page }) => {
+  test('Menu Bar Contents', async ({ page, pageHeader }) => {
 
-    const pageHeader = new PageHeader(page);
     await expect(page).toHaveScreenshot('headerMenu.png', { mask: pageHeader.snapshotMask });
 
   });
 
   // Use aria snapshot to check the contents of the 'Shop By Category' menu.
   // N.B. The snapshot has had '/children: equal' manually added for exact matching.
-  test('Shop By Category List Contents', async ({ page }) => {
+  test('Shop By Category List Contents', async ({ page, pageHeader }) => {
 
-    const pageHeader = new PageHeader(page);
     await pageHeader.shopByCategoryBtn.click();
     await expect(pageHeader.shopByCategoryMenu).toMatchAriaSnapshot({ name: 'ShopByCategory.yml'});
     
   });
 
   // Go to another page in the site and click 'Home' to check it takes us back
-  test('Home Menu Navigation', async({ page }) => {
+  test('Home Menu Navigation', async({ page, pageHeader, specialPage, homePage }) => {
   
-    const pageHeader = new PageHeader(page);
-    const specialPage = new SpecialPage(page);
-    const homePage = new HomePage(page);
-
     await pageHeader.special.click();
     await page.waitForURL(specialPage.pageUrl);
 
@@ -51,19 +40,14 @@ test.describe('Page Header', async () => {
 
   });
 
-  test('Special Menu Navigation', async({ page }) => {
-
-    const pageHeader = new PageHeader(page);
+  test('Special Menu Navigation', async({ page, pageHeader, specialPage }) => {
    
     await pageHeader.special.click();
-    await page.waitForURL(pageHeader.pageUrl);
+    await page.waitForURL(specialPage.pageUrl);
 
   });
 
-  test('Blog Menu Navigation', async({ page }) => {
-
-    const pageHeader = new PageHeader(page);
-    const blogPage = new BlogPage(page);
+  test('Blog Menu Navigation', async({ page, pageHeader, blogPage }) => {
 
     await pageHeader.blog.click();
     await page.waitForURL(blogPage.pageUrl);
@@ -72,9 +56,8 @@ test.describe('Page Header', async () => {
 
   // The 'Mega Menu' menu is visible when moused over, so hover over it then use aria snapshot
   // to compare
-  test('Mega Menu Content', async({ page }) => {
+  test('Mega Menu Content', async({ page, pageHeader }) => {
 
-    const pageHeader = new PageHeader(page);
     await pageHeader.megaMenuBtn.hover();
     await expect(pageHeader.megaMenuMenu).toMatchAriaSnapshot({ name: 'MegaMenu.yaml'});
   
@@ -82,9 +65,8 @@ test.describe('Page Header', async () => {
 
   // The 'Mega Menu' is split into sections, 'Mobiles', 'Laptops' etc., so go through the 
   // links to every item in the 'Mobiles' section, loop through checking the correct page loads OK.
-  test('Mega Menu Links - Mobile', async({ page }) => {
+  test('Mega Menu Links - Mobile', async({ page, pageHeader }) => {
 
-    const pageHeader = new PageHeader(page);
     // N.B. Only the first two pages are set up correctly on the test website, so this test will always
     // fail on the 3rd + loop through. Hence the hardcoded 2 loops.
     for (let i = 0; i < 2; i++) {
@@ -108,10 +90,8 @@ test.describe('Page Header', async () => {
 
   });
 
-  test('Compare Navigation', async({ page }) => {
+  test('Compare Navigation', async({ page, pageHeader, comparePage }) => {
 
-    const pageHeader = new PageHeader(page);
-    const comparePage = new ComparePage(page);
     await pageHeader.compare.click();
     await page.waitForURL(comparePage.pageUrl);
 
@@ -119,23 +99,18 @@ test.describe('Page Header', async () => {
 
   // Need to be logged in to get to an actual wishlist, but will keep this test in for completeness.
   // When not logged in the button takes the user to the login page
-  test('Wishlist Navigation', async({ page }) => {
+  test('Wishlist Navigation', async({ page, pageHeader, loginPage }) => {
 
-    const pageHeader = new PageHeader(page);
-    const loginPage = new LoginPage(page);
     await pageHeader.wishlist.click();
     await page.waitForURL(loginPage.pageUrl);
 
   });
 
   // A drawer opens when the shopping cart is clicked.
-  test('Shopping Cart Drawer Opens', async({ page }) => {
+  test('Shopping Cart Drawer Opens', async({ page, pageHeader, cartDrawer }) => {
 
-    const pageHeader = new PageHeader(page);
-    const cartDrawer = new CartDrawer(page);
     await pageHeader.shoppingCart.click();
     await expect(cartDrawer.mainForm).toBeVisible();
 
   });
-  
 });

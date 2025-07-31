@@ -1,11 +1,5 @@
-import { test, expect } from '@playwright/test';
-import { PageHeader } from '../page_objects/pageHeader.pom';
-import { HomePage } from '../page_objects/homePage.pom';
-import { SpecialPage } from '../page_objects/specialPage.pom';
-import { BlogPage } from '../page_objects/blogPage.pom';
-import { ComparePage } from '../page_objects/comparePage.pom';
-import { LoginPage } from '../page_objects/loginPage.pom';
-import { CartDrawer } from '../page_objects/cartDrawer.pom';
+import { expect } from '@playwright/test';
+import { test } from '@fixtures/pageobjects.fixture';
 
 test.describe('Page Header', async () => {
 
@@ -15,6 +9,4 @@ test.describe('Page Header', async () => {
     await page.goto('https://ecommerce-playground.lambdatest.io/');
 
   });
-
-  
 });

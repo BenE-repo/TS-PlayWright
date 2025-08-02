@@ -1,5 +1,7 @@
 import { expect } from '@playwright/test';
 import { test } from '@fixtures/pageobjects.fixture';
+import { isElementValid } from '@helpers/html5Functions';
+import { register } from 'module';
 
 test.describe('Account Register and Login', async () => {
 
@@ -88,12 +90,13 @@ test.describe('Account Register and Login', async () => {
 
   });
 
+  // email uses the browser's built-in HTML5 validation, which could be argued doesn't need testing
+  // as we have no control over it, but doesn't hurt to check...
   test('Register for Account: Email Validity - Basic String', async({ page, registerAccount }) => {
 
     await registerAccount.email.fill('BasicString');
     await registerAccount.continue.click();
-    // TODO: pop up error
-    await expect(registerAccount.emailError).toBeVisible();
+    expect(await isElementValid(registerAccount.email)).toEqual(false);
 
   });
 
@@ -101,8 +104,22 @@ test.describe('Account Register and Login', async () => {
 
     await registerAccount.email.fill('NoDomain@');
     await registerAccount.continue.click();
-    // TODO: pop up error
+    expect(await isElementValid(registerAccount.email)).toEqual(false);
+
+  });
+
+  // The built-in HTML5 validation for email doesn't seem to moan about the below on FF, Chrome or Safari
+  // but the post-submit validation doesn't like it, so looking for a validation message to appear, like for the other fields
+  test('Register for Account: Email Validity - No TLD', async({ page, registerAccount }) => {
+
+    await registerAccount.email.fill('NoTLD@example');
+    await registerAccount.continue.click();
     await expect(registerAccount.emailError).toBeVisible();
 
   });
+
+  /*
+    NOT DONE: etc. etc. for other things that can make an email address invalid.
+  */
+
 });

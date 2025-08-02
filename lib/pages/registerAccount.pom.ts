@@ -40,8 +40,8 @@ export class RegisterAccount extends BasePom {
         this.firstNameError = page.locator(sprintf(_fieldErrorBase, 'First Name'));
         this.lastNameError = page.locator(sprintf(_fieldErrorBase, 'Last Name'));
         this.emailError = page.locator(sprintf(_fieldErrorBase, 'E-Mail'));
+        //this.emailError = this.email
         this.telephoneError = page.locator(sprintf(_fieldErrorBase, 'Telephone'));
-        this.emailError = page.locator(sprintf(_fieldErrorBase, 'E-Mail'));
         this.passwordError = page.locator(sprintf(_fieldErrorBase, 'Password'));
         this.passwordConfirmError = page.locator(sprintf(_fieldErrorBase, 'Password Confirm'));
 

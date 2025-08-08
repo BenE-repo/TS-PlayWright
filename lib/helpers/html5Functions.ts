@@ -1,7 +1,8 @@
 import { Locator } from '@playwright/test';
 
-// I'm not using try/catch blocks for calls to this function as uncaught errors are fine. 99% of the time it will only error when
-// developing tests, and the other 1% isn't worth cluttering up the tests with try/catches. 
+// Determines if the passed in element of the page (Input/Select/TextArea) is valid as per the browser built-in HTML5 form validation
+// (https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/Form_validation) and returns a boolean.
+// Will throw an error if the passed in element isn't an Input, Select or TextArea.
 export async function isElementValid(locator: Locator): Promise<boolean> {
   return locator.evaluate((el: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement) => {
     if (!(el instanceof HTMLInputElement || el instanceof HTMLSelectElement || el instanceof HTMLTextAreaElement)) {
